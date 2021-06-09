@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.amazon.ata.math.AtaMathTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-27T23:15:24" hostname="Jamies-MacBook-Pro.local" time="0.023">
+  <properties/>
+  <testcase name="add_singleInteger_returnsTheInteger()" classname="com.amazon.ata.math.AtaMathTest" time="0.023"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
