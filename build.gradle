@@ -1,9 +1,13 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id 'java'
     id 'checkstyle'
     id 'jacoco'
     id 'com.github.spotbugs' version '4.7.1'
-    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id 'com.adarshr.test-logger' version '3.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 repositories {
@@ -11,7 +15,8 @@ repositories {
 }
 
 checkstyle {
-    sourceSets = [sourceSets.main, sourceSets.test]
+//    sourceSets = [sourceSets.main, sourceSets.test]
+    sourceSets = [sourceSets.main]
     configFile = file("$rootDir/LibrariesAndUtilities/ATACheckstyle/configuration/checkstyle/checkstyle.xml")
     configProperties.put('checkstyle.suppression.filter', "$rootDir/LibrariesAndUtilities/ATACheckstyle/configuration/checkstyle/suppressions.xml")
     ignoreFailures = true
@@ -29,7 +34,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.00
+                minimum = 0.80
             }
         }
     }
@@ -42,7 +47,7 @@ sourceSets {
             srcDirs = ['src/']
         }
         resources {
-            srcDirs = ['resources/']
+            srcDirs = ['src/resources/']
         }
     }
     test {
@@ -50,12 +55,13 @@ sourceSets {
             srcDirs = ['tst/']
         }
         resources {
-            srcDirs = ['resources/']
+            srcDirs = ['tst/resources/']
         }
     }
 }
 
 spotbugs {
+    spotbugsTest.enabled = false
     ignoreFailures = true
 }
 
@@ -77,11 +83,56 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.10.0'
 
     implementation files("$rootDir/LibrariesAndUtilities/ATAResources.jar")
-    implementation project('LibrariesAndUtilities:LessonPlanResources')
+    testImplementation files("$rootDir/LibrariesAndUtilities/ATAResources.jar")
+
+    //implementation project('LibrariesAndUtilities:LessonPlanResources')
 }
 
 test {
     useJUnitPlatform()
+
+    testlogger {
+        theme 'plain'
+        logLevel 'quiet'
+    }
+
+    testLogging {
+        // set options for log level LIFECYCLE
+        events TestLogEvent.FAILED,
+                TestLogEvent.PASSED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events TestLogEvent.STARTED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
+                    TestLogEvent.STANDARD_ERROR,
+                    TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+
+                def scoringPercentage = 10 - result.failedTestCount
+                scoringPercentage = scoringPercentage / 10
+                println("Exit Result for Scoring: " + scoringPercentage)
+            }
+        }
+    }
 }
 
 project.configurations.implementation.setCanBeResolved(true)

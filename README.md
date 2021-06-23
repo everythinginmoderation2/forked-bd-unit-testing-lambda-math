@@ -15,7 +15,7 @@ Look at the `average()` method, and answer for yourself:
 ## Write the tests!
 
 Let's write some JUnit unit tests from the test cases provided at
-`tst/com/amazon/ata/unittesting/classroom/math/test_cases.md`.
+`tst/com/amazon/ata/unittesting/math/test_cases.md`.
 
 ### Write your first test
 
