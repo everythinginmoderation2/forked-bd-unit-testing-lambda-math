@@ -1,5 +1,7 @@
 # The `AtaMathTest`
 
+**GitHub repo:** [ebd-unit-testing-lambda-math](https://github.com/LambdaSchool/ebd-unit-testing-lambda-math)
+
 ## What's `average()` trying to do?
 
 We've added a new method to the `AtaMath` class and would like you to ensure it's properly tested. Through manual
@@ -29,7 +31,8 @@ your first attempt at it.
 Make sure your tests pass. If they do not, diagnose and see what's wrong. It's *probably* the test code (which is a
 fairly common occurrence when you're writing new code/test code), so check there first.
 
-Show them to your neighbor for feedback, and push your code when you're satisfied.
+Push your code once you are satisfied. You can run `./gradlew -q clean :test` to run all tests. 
+Or you can run them from within IntelliJ directly.
 
 Once you've pushed, find your snippets package on code.amazon.com, click on the "Commits" tab, then click
 on your commit that shows the changes you've made.
