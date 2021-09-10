@@ -1,7 +1,5 @@
 # The `AtaMathTest`
 
-**GitHub repo:** [ebd-unit-testing-lambda-math](https://github.com/LambdaSchool/ebd-unit-testing-lambda-math)
-
 ## What's `average()` trying to do?
 
 We've added a new method to the `AtaMath` class and would like you to ensure it's properly tested. Through manual
