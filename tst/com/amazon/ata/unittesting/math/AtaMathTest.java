@@ -185,6 +185,13 @@ public class AtaMathTest {
 
     @Test
     public void average_ofLargeNumbersThatOverflow_throwsArithmeticException() {
+        //GIVEN
+        int[] tooLarge = {Integer.MAX_VALUE + 1, Integer.MAX_VALUE + 1};
+        AtaMath ataMath = new AtaMath();
 
+        //WHEN
+        //THEN
+        Assertions.assertThrows(ArithmeticException.class, () ->
+                ataMath.average(tooLarge), "Averaging large numbers whose sum exceeds MAX_VALUE should result in ArithmeticException thrown");
     }
 }
