@@ -173,7 +173,14 @@ public class AtaMathTest {
 
     @Test
     public void average_ofEmptyArray_throwsIllegalArgumentException() {
+        //GIVEN
+        int[] emptyArray = {};
+        AtaMath ataMath = new AtaMath();
 
+        //WHEN - attempt to compute the average
+        //THEN - exception thrown
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                ataMath.average(emptyArray), "Averaging empty array should result in IllegalArgumentException thrown");
     }
 
     @Test
