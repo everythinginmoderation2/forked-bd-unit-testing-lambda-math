@@ -158,7 +158,17 @@ public class AtaMathTest {
 
     @Test
     public void average_ofIntegersIncludingZeroes_isCorrect() {
+        //GIVEN
+        int[] includesZeroes = {0, 1, 2};
+        AtaMath ataMath = new AtaMath();
 
+        //WHEN
+        double result = ataMath.average(includesZeroes);
+
+        //THEN
+        Assertions.assertEquals(1, result, String.format(
+                "Expected averaging values in array %s to return their average (1)",
+                Arrays.toString(includesZeroes)));
     }
 
     @Test
