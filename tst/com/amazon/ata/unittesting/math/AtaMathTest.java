@@ -143,7 +143,17 @@ public class AtaMathTest {
 
     @Test
     public void average_ofPositiveAndNegativeIntegers_isCorrect() {
+        //GIVEN
+        int[] posAndNegValues = {-3, 9, -3};
+        AtaMath ataMath = new AtaMath();
 
+        //WHEN
+        double result = ataMath.average(posAndNegValues);
+
+        //THEN
+        Assertions.assertEquals(1, result, String.format(
+                "Expected averaging values in array %s to return their average (1)",
+                Arrays.toString(posAndNegValues)));
     }
 
     @Test
