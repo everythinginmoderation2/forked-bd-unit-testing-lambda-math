@@ -1,5 +1,6 @@
 package com.amazon.ata.unittesting.math;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -101,4 +102,53 @@ public class AtaMathTest {
     // average()
 
     // PARTICIPANTS: ADD YOUR NEW TESTS HERE (and you can delete this line while you're at it)
+    @Test
+    public void average_ofSingleInteger_isThatInteger() {
+        //GIVEN
+        int[] values = {2};
+        AtaMath ataMath = new AtaMath();
+
+        //WHEN
+        double result = ataMath.average(values);
+
+        //THEN
+        Assertions.assertEquals(values[0], result, "Averaging a single integer should equal that integer");
+    }
+
+    @Test
+    public void average_ofSeveralIntegers_isCorrect() {
+
+
+    }
+
+    @Test
+    public void average_ofNullArray_throwsIllegalArgumentException() {
+        //GIVEN
+        int[] values = null;
+        AtaMath ataMath = new AtaMath();
+        //WHEN - attempt to compute the average
+        //THEN - exception thrown
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+            ataMath.average(values), "Averaging null should result in IllegalArgumentException thrown");
+    }
+
+    @Test
+    public void average_ofPositiveAndNegativeIntegers_isCorrect() {
+
+    }
+
+    @Test
+    public void average_ofIntegersIncludingZeroes_isCorrect() {
+
+    }
+
+    @Test
+    public void average_ofEmptyArray_throwsIllegalArgumentException() {
+
+    }
+
+    @Test
+    public void average_ofLargeNumbersThatOverflow_throwsArithmeticException() {
+
+    }
 }
