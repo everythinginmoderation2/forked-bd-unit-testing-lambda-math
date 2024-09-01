@@ -105,20 +105,29 @@ public class AtaMathTest {
     @Test
     public void average_ofSingleInteger_isThatInteger() {
         //GIVEN
-        int[] values = {2};
+        int[] oneInteger = {2};
+        AtaMath ataMath = new AtaMath();
+
+        //WHEN
+        double result = ataMath.average(oneInteger);
+
+        //THEN
+        Assertions.assertEquals(oneInteger[0], result, "Expected averaging one integer should equal that integer");
+    }
+
+    @Test
+    public void average_ofSeveralIntegers_isCorrect() {
+        //GIVEN
+        int[] values = {2, 8, 2};
         AtaMath ataMath = new AtaMath();
 
         //WHEN
         double result = ataMath.average(values);
 
         //THEN
-        Assertions.assertEquals(values[0], result, "Averaging a single integer should equal that integer");
-    }
-
-    @Test
-    public void average_ofSeveralIntegers_isCorrect() {
-
-
+        Assertions.assertEquals(4, result, String.format(
+                "Expected averaging values in array %s to return their average (4)",
+                Arrays.toString(values)));
     }
 
     @Test
